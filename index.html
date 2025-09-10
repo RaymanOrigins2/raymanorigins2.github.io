@@ -238,37 +238,34 @@
     margin-top: -100px;
   }
 
-  /* ===== Cartel de descripción ===== */
+
+/* ===== Nuevo cartel de descripción centrado debajo del logo ===== */
   #description-sign {
-    width: 45vw;
-    max-width: 200px;
-    aspect-ratio: 246 / 272;
-    bottom: -35vh; left: 5vw;
+    width: 60vw;                 /* ancho relativo a pantalla */
+    max-width: 220px;            /* límite máximo */
+    aspect-ratio: 246 / 272;     /* mantiene proporción */
+    margin: 20px auto 0 auto;    /* centrado y separado del logo */
+    position: relative;           /* relativo al flujo, no absoluto */
     background: url("images/sign-no-stick.png") no-repeat center / contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #description-sign .sign-text {
     width: 85%;
-    top: 30%; /* ⬆️ más arriba */
+    top: auto;                    /* ya no necesitamos posicionamiento absoluto */
     left: 50%;
     transform: translateX(-50%);
     font-size: clamp(10px, 3.5vw, 13px);
     line-height: 1.25em;
     text-align: center;
+    position: relative;           /* relativo dentro del cartel */
   }
-
-  /* ===== Cartel NEXT ===== */
+  
+ /* Ocultar cartel NEXT en móviles */
   #next-sign {
-    width: 50vw;
-    max-width: 220px;
-    aspect-ratio: 296 / 230;
-    bottom: -35vh; right: -10vw;
-    background: url("images/sign-next-no-stick.png") no-repeat center / contain;
-    z-index: 5;
-  }
-
-  #next-sign:hover {
-    background: url("images/sign-next-no-stick-hover.png") no-repeat center / contain;
+    display: none !important;
   }
 }
 
