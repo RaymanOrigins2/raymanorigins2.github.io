@@ -240,27 +240,28 @@
 
 
 /* ===== Nuevo cartel de descripción centrado debajo del logo ===== */
+ /* Contenedor del cartel igual que el logo */
   #description-sign {
-    width: 60vw;                 /* ancho relativo a pantalla */
-    max-width: 220px;            /* límite máximo */
-    aspect-ratio: 246 / 272;     /* mantiene proporción */
-    margin: 20px auto 0 auto;    /* centrado y separado del logo */
-    position: relative;           /* relativo al flujo, no absoluto */
-    background: url("images/sign-no-stick.png") no-repeat center / contain;
+    position: relative; /* para que se ubique dentro del flujo */
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin: 20px auto 0 auto; /* espacio arriba y centrado */
+    width: 60%; /* ajusta según convenga */
+    max-width: 200px;
+    aspect-ratio: 246 / 272;
+    background: url("images/sign-no-stick.png") no-repeat center / contain;
+    bottom: auto;
+    left: auto;
   }
 
   #description-sign .sign-text {
     width: 85%;
-    top: auto;                    /* ya no necesitamos posicionamiento absoluto */
+    top: 30%; /* mantiene la posición del texto dentro del cartel */
     left: 50%;
     transform: translateX(-50%);
     font-size: clamp(10px, 3.5vw, 13px);
     line-height: 1.25em;
     text-align: center;
-    position: relative;           /* relativo dentro del cartel */
   }
   
  /* Ocultar cartel NEXT en móviles */
