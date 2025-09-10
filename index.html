@@ -282,6 +282,8 @@
   iframe, img, .navbar, .nav-links, .logo-container {
   max-width: 100%;
   box-sizing: border-box;
+  
+  
 }
 
   </style>
@@ -422,12 +424,35 @@
   <a href="game.html" id="next-sign" class="sign-link"></a>
 
   <!-- ================= ESCENARIO: piso y zona negra ================= -->
-  <div class="world-bottom">
-    <div class="ground"></div>
-    <div class="dark-section">
-      <!-- 🔹 Aquí puedes añadir sistemas extra como COMENTARIOS o sección de noticias -->
+<!-- Contenedor de piso + parte negra -->
+<div class="world-bottom">
+  <div class="ground"></div>
+  <div class="dark-section">
+    
+    <!-- ================= SISTEMA DE COMENTARIOS ================= -->
+    <div id="comments-container" 
+         style="position: relative; top: 150px; max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+      <script src="https://giscus.app/client.js"
+        data-repo="RaymanOrigins2/raymanorigins2.github.io"
+        data-repo-id="R_kgDOPtAFFA"
+        data-category="General"
+        data-category-id="DIC_kwDOPtAFFM4CvOFT"
+        data-mapping="url"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="es"
+        crossorigin="anonymous"
+        async>
+      </script>
     </div>
+    <!-- ================= FIN COMENTARIOS ================= -->
+
   </div>
+</div>
+
 
 </body>
 </html>
