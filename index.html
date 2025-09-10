@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rayman Origins 2 - Website</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
+
+  <style>
+  /* ===== Fuente Rayman ===== */
+  @font-face {
+    font-family: 'Rayman';
+    src: url('ro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* ===== Reset global ===== */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+    background: url("img/bg/autumn.jpg") no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  /* ================= NAVBAR ================= */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 10px;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  /* Botón idioma */
+  .lang-toggle {
+    margin-right: 15px;
+    background: #333;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    transition: background 0.3s ease;
+  }
+  .lang-toggle:hover { background: #555; }
+
+  /* Links navbar */
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-links a img {
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    -webkit-user-drag: none;
+    user-select: none;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+  }
+  .nav-links a img:hover { transform: rotate(4deg) scale(1.1); }
+
+  /* Toggle móvil */
+  .menu-toggle {
+    display: none;
+    margin-left: 10px;
+    background: #ffcc00;
+    border: none;
+    font-size: 24px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .menu-toggle:hover {
+    transform: rotate(10deg) scale(1.1);
+    background: #ffaa00;
+  }
+
+  /* ================= TRAILER ================= */
+  .trailer {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .frame {
+    background: url("images/wood-frame.png") no-repeat center;
+    background-size: contain;
+    width: 719px;
+    height: 409px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .frame iframe {
+    position: absolute;
+    top: 25%; left: 18%;
+    width: 62%; height: 70%;
+    border-radius: 10px;
+  }
+
+  /* ================= ESCENARIO DECORATIVO ================= */
+  .world-bottom {
+    position: relative;
+    width: 100%;
+  }
+
+  .ground {
+    width: 100%;
+    height: 350px;
+    background: url("img/grass.png") repeat-x center bottom;
+    background-size: auto 300px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .dark-section {
+    width: 100%;
+    height: 900px;
+    background: black;
+    position: relative;
+    z-index: 1;
+    margin-top: -200px;
+  }
+
+  /* ================= LOGO ================= */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .logo-container img {
+    width: 400px;
+    max-width: 80%;
+    height: auto;
+    animation: floaty 3s ease-in-out infinite;
+  }
+
+  @keyframes floaty {
+    0%   { transform: translateY(0) rotate(-1deg); }
+    50%  { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(0) rotate(-1deg); }
+  }
+
+  /* ================= CARTELES ================= */
+  #description-sign {
+    width: 246px; height: 272px;
+    background: url("images/sign.png") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    bottom: -100px; left: 20px;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 0;
+  }
+  #description-sign .sign-text {
+    width: 208px; height: 108px;
+    position: absolute;
+    top: 80px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Rayman', sans-serif;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    line-height: 1.2em;
+    padding: 5px;
+  }
+  .sign-text .highlight { color: yellow; }
+
+  #next-sign {
+    width: 296px; height: 230px;
+    background: url("images/sign-next.png") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    bottom: -130px; right: 20px;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 0;
+    transition: background 0.3s ease;
+  }
+  #next-sign:hover {
+    background: url("images/sign-next-hover.png") no-repeat center;
+    background-size: contain;
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 768px) {
+    .nav-links a img { height: 45px; }
+    .menu-toggle { display: inline-block; }
+    .hidden-mobile { display: none; }
+    .hidden-mobile.show {
+      display: inline-block;
+      animation: popIn 0.5s ease forwards;
+    }
+    .trailer { padding-top: 120px; }
+    .frame {
+      width: 95vw;
+      height: calc(95vw * 409 / 719);
+      background-size: 100% auto;
+    }
+    .ground { height: 300px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links a img { height: 40px; }
+    .ground {
+      height: 350px;
+      background-size: auto 200px;
+    }
+    .dark-section {
+      height: 600px;
+      margin-top: -100px;
+    }
+    #description-sign {
+      width: 180px; height: 200px;
+      bottom: -120px; left: 10px;
+    }
+    #description-sign .sign-text {
+      width: 150px; height: 80px;
+      top: 60px;
+      font-size: 11px;
+      line-height: 1.1em;
+    }
+    #next-sign {
+      width: 200px; height: 160px;
+      bottom: -100px; right: -50px;
+      background: url("images/sign-next-no-stick.png") no-repeat center;
+      background-size: contain;
+      z-index: 5;
+    }
+    #next-sign:hover {
+      background: url("images/sign-next-no-stick-hover.png") no-repeat center;
+      background-size: contain;
+    }
+  }
+
+  /* Animación aparición */
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7) rotate(-10deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0); }
+  }
+  </style>
+</head>
+
+<body> 
+
+  <!-- ================= NAVBAR ================= -->
+  <div class="navbar" id="navbar"></div>
+
+  <script>
+    /* ===== SISTEMA DE IDIOMAS ===== 
+       Detecta el idioma del navegador.
+       Si empieza con "es" -> español, de lo contrario -> inglés.
+    */
+    let lang = (navigator.language || navigator.userLanguage).startsWith("es") ? "es" : "en";
+
+    // Página actual para marcar el botón activo
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+    // Definición de botones por idioma
+    const buttons = {
+      en: [
+        { name: "Home", normal: "img/en/home.png", hover: "img/en/home_hover.png", active: "img/en/home_active.png", link: "index.html" },
+        { name: "Game Info", normal: "img/en/game.png", hover: "img/en/game_hover.png", active: "img/en/game_active.png", link: "game.html" },
+        { name: "Characters", normal: "img/en/char.png", hover: "img/en/char_hover.png", active: "img/en/char_active.png", link: "characters.html" },
+        { name: "Slap Central Station", normal: "img/en/slap.png", hover: "img/en/slap_hover.png", active: "img/en/slap_active.png", link: "slap.html" },
+        { name: "Gallery", normal: "img/en/gallery.png", hover: "img/en/gallery_hover.png", active: "img/en/gallery_active.png", link: "gallery.html" },
+        { name: "Download", normal: "img/en/download.png", hover: "img/en/download_hover.png", active: "img/en/download_active.png", link: "download.html" }
+      ],
+      es: [
+        { name: "Inicio", normal: "img/es/home.png", hover: "img/es/home_hover.png", active: "img/es/home_active.png", link: "index.html" },
+        { name: "Información", normal: "img/es/game.png", hover: "img/es/game_hover.png", active: "img/es/game_active.png", link: "game.html" },
+        { name: "Personajes", normal: "img/es/char.png", hover: "img/es/char_hover.png", active: "img/es/char_active.png", link: "characters.html" },
+        { name: "Slap Central Station", normal: "img/es/slap.png", hover: "img/es/slap_hover.png", active: "img/es/slap_active.png", link: "slap.html" },
+        { name: "Galería", normal: "img/es/gallery.png", hover: "img/es/gallery_hover.png", active: "img/es/gallery_active.png", link: "gallery.html" },
+        { name: "Descargar", normal: "img/es/download.png", hover: "img/es/download_hover.png", active: "img/es/download_active.png", link: "download.html" }
+      ]
+    };
+
+    const navbar = document.getElementById("navbar");
+
+    // Contenedor de links
+    const navLinks = document.createElement("div");
+    navLinks.className = "nav-links";
+    navbar.appendChild(navLinks);
+
+    // Renderizar botones
+    function renderButtons() {
+      navLinks.innerHTML = ""; // limpiar
+      buttons[lang].forEach((btn, index) => {
+        const a = document.createElement("a");
+        a.href = btn.link;
+
+        const img = document.createElement("img");
+        img.alt = btn.name;
+
+        // Botón activo según la página
+        if (btn.link === currentPage) {
+          img.src = btn.active;
+        } else {
+          img.src = btn.normal;
+          img.addEventListener("mouseover", () => img.src = btn.hover);
+          img.addEventListener("mouseout", () => img.src = btn.normal);
+          img.addEventListener("mousedown", () => img.src = btn.active);
+          img.addEventListener("mouseup", () => img.src = btn.hover);
+        }
+
+        a.appendChild(img);
+
+        // En móvil solo se muestran 3, el resto con toggle
+        if (index < 3) {
+          navLinks.appendChild(a);
+        } else {
+          a.classList.add("hidden-mobile");
+          navLinks.appendChild(a);
+        }
+      });
+
+      // Botón toggle (+) para mostrar/ocultar links en móvil
+      const toggleBtn = document.createElement("button");
+      toggleBtn.className = "menu-toggle";
+      toggleBtn.textContent = "+";
+      navLinks.appendChild(toggleBtn);
+
+      toggleBtn.addEventListener("click", () => {
+        document.querySelectorAll(".hidden-mobile").forEach(el => {
+          el.classList.toggle("show");
+        });
+      });
+    }
+
+    // Render inicial
+    renderButtons();
+  </script>
+
+
+  <!-- ================= TRAILER ================= -->
+  <section class="trailer">
+    <div class="frame">
+      <iframe 
+        src="https://www.youtube-nocookie.com/embed/yDBijim48iI"
+        referrerpolicy="strict-origin"
+        title="Rayman Origins 2 Trailer"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+  
+  <!-- ================= LOGO ================= -->
+  <div class="logo-container">
+    <img src="images/rayman-origins-2-logo.png" alt="Rayman Origins 2 Logo">
+  </div>
+
+  <!-- ================= CARTEL DESCRIPCIÓN ================= -->
+  <div class="sign" id="description-sign">
+    <div class="sign-text" id="sign-text"></div>
+  </div>
+
+  <script>
+    // Textos para el cartel en ambos idiomas
+    const descriptions = {
+      en: "Welcome to <span class='highlight'>Rayman Origins 2</span>! A crazy adventure full of challenges, laughter and surprises.",
+      es: "¡Bienvenido a <span class='highlight'>Rayman Origins 2</span>! Una loca aventura llena de desafíos, risas y sorpresas."
+    };
+
+    // Actualizar idioma del cartel
+    function updateLanguage() {
+      document.getElementById("sign-text").innerHTML = descriptions[lang];
+    }
+
+    // Primera carga
+    updateLanguage();
+  </script>
+
+  <!-- ================= CARTEL NEXT (derecha en el suelo) ================= -->
+  <a href="game.html" id="next-sign" class="sign-link"></a>
+
+  <!-- ================= ESCENARIO: piso y zona negra ================= -->
+  <div class="world-bottom">
+    <div class="ground"></div>
+    <div class="dark-section">
+      <!-- 🔹 Aquí puedes añadir sistemas extra como COMENTARIOS o sección de noticias -->
+    </div>
+  </div>
+
+</body>
+</html>
