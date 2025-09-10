@@ -428,31 +428,40 @@
 <div class="world-bottom">
   <div class="ground"></div>
   <div class="dark-section">
-    
+
     <!-- ================= SISTEMA DE COMENTARIOS ================= -->
     <div id="comments-container" 
          style="position: relative; top: 150px; max-width: 800px; margin: 0 auto; padding: 40px 20px;">
-      <script src="https://giscus.app/client.js"
-        data-repo="RaymanOrigins2/raymanorigins2.github.io"
-        data-repo-id="R_kgDOPtAFFA"
-        data-category="General"
-        data-category-id="DIC_kwDOPtAFFM4CvOFT"
-        data-mapping="url"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="es"
-        crossorigin="anonymous"
-        async>
-      </script>
     </div>
+
+    <script>
+      // Detectar idioma del navegador
+      const userLang = (navigator.language || navigator.userLanguage).startsWith("es") ? "es" : "en";
+
+      // Crear el script de Giscus dinámicamente con el idioma adecuado
+      const giscusScript = document.createElement("script");
+      giscusScript.src = "https://giscus.app/client.js";
+      giscusScript.setAttribute("data-repo", "RaymanOrigins2/raymanorigins2.github.io");
+      giscusScript.setAttribute("data-repo-id", "R_kgDOPtAFFA");
+      giscusScript.setAttribute("data-category", "General");
+      giscusScript.setAttribute("data-category-id", "DIC_kwDOPtAFFM4CvOFT");
+      giscusScript.setAttribute("data-mapping", "url");
+      giscusScript.setAttribute("data-strict", "0");
+      giscusScript.setAttribute("data-reactions-enabled", "1");
+      giscusScript.setAttribute("data-emit-metadata", "0");
+      giscusScript.setAttribute("data-input-position", "top");
+      giscusScript.setAttribute("data-theme", "preferred_color_scheme");
+      giscusScript.setAttribute("data-lang", userLang); // <- idioma automático
+      giscusScript.setAttribute("crossorigin", "anonymous");
+      giscusScript.async = true;
+
+      // Agregar el script al contenedor
+      document.getElementById("comments-container").appendChild(giscusScript);
+    </script>
     <!-- ================= FIN COMENTARIOS ================= -->
 
   </div>
 </div>
-
 
 </body>
 </html>
