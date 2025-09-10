@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 Cooking...</title>
+
+ <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
+<style>
+  @font-face {
+    font-family: 'RO';
+    src: url('ro.ttf') format('truetype');
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'RO', sans-serif; }
+  body {
+    background-color: #db711b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .container { display:flex; flex-direction:column; align-items:center; gap:20px; max-width:90%; margin:0 auto; }
+  img { max-width:100%; height:auto; animation:bounce 2s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+
+  h1 { font-size:2rem; text-shadow:2px 2px #00000088; }
+  p { font-size:1.2rem; max-width:600px; text-shadow:1px 1px #00000088; }
+
+  .button-row { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; }
+  button { padding:12px 25px; background-color:#fff; color:#db711b; font-weight:bold; border:none; border-radius:15px; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  button:hover { transform:scale(1.1); box-shadow:0 5px 15px #00000088; }
+
+  .ufo, .ray, .exploded-letter { position:absolute; font-size:3rem; pointer-events:none; z-index:9999; user-select:none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img src="images/404error.png" alt="404 Error">
+  <h1 id="title">¡Ups! Página no encontrada</h1>
+  <p id="message">
+    Cocinando... estamos preparando esta parte del sitio 🍳✨.
+    Guarda el sitio en tus favoritos para ver la obra maestra cuando esté lista. 😎
+  </p>
+
+  <div class="button-row">
+    <button class="invasion">Invasion 🛸</button>
+    <button class="explode">Kaboom! 💥</button>
+  </div>
+
+<button class="back-home" onclick="location.href='index.html'">home 🏠</button>
+
+</div>
+
+<script>
+const userLang = navigator.language || navigator.userLanguage;
+const title = document.getElementById('title');
+const message = document.getElementById('message');
+if(userLang.startsWith('en')){
+  title.textContent = "Oops! Page not found";
+  message.textContent = "Cooking... we're preparing this part of the site 🍳✨. Save it to your favorites to check our masterpiece when it's ready. 😎";
+}
+
+const emojis = ["🍕","🛸","💥","🐙","🎉","👾","🍔","🌟","🤖","🦄"];
+
+// --- Sonidos ---
+const invasionSound = new Audio('sounds/invasion.mp3');
+const explodeSound = new Audio('sounds/scream.mp3');
+
+// --- INVASIÓN ---
+document.querySelector('.invasion').addEventListener('click', () => {
+  invasionSound.currentTime = 0;
+  invasionSound.play();
+
+  const ufo = document.createElement('span');
+  ufo.className = 'ufo';
+  ufo.textContent = '🛸';
+  document.body.appendChild(ufo);
+
+  ufo.style.top = '50%';
+  ufo.style.left = window.innerWidth + 'px';
+  ufo.style.transform = 'translateY(-50%)';
+
+  let ufoX = window.innerWidth;
+  const targetX = window.innerWidth/2 - 30;
+  const moveUfo = setInterval(()=>{
+    ufoX -= 20;
+    ufo.style.left = ufoX+'px';
+    if(ufoX <= targetX){
+      clearInterval(moveUfo);
+      lanzarRayo();
+    }
+  },30);
+
+  function lanzarRayo(){
+    const rect = message.getBoundingClientRect();
+    const ray = document.createElement('span');
+    ray.className = 'ray';
+    ray.textContent = '⚡';
+    document.body.appendChild(ray);
+    ray.style.left = ufoX+'px';
+    ray.style.top = (rect.top + window.scrollY + rect.height/2)+'px';
+
+    let rayX = ufoX;
+    const targetRayX = rect.left + window.scrollX + rect.width/2;
+    const rayInterval = setInterval(()=>{
+      if(rayX > targetRayX){
+        rayX -= 15;
+        ray.style.left = rayX+'px';
+      } else {
+        clearInterval(rayInterval);
+        ray.remove();
+        empezarEmojizar();
+      }
+    },30);
+  }
+
+  function empezarEmojizar(){
+    const text = message.textContent.split(' ');
+    message.textContent = '';
+    text.forEach(word => {
+      const span = document.createElement('span');
+      span.textContent = word + ' ';
+      message.appendChild(span);
+    });
+
+    setInterval(()=>{
+      const spans = message.querySelectorAll('span');
+      spans.forEach(span => {
+        if(Math.random() > 0.3){
+          span.textContent = emojis[Math.floor(Math.random()*emojis.length)] + ' ';
+        }
+      });
+    },500);
+  }
+});
+
+// --- EXPLOTAR ---
+document.querySelector('.explode').addEventListener('click', () => {
+  explodeSound.currentTime = 0;
+  explodeSound.play();
+
+  const text = message.textContent.split('');
+  message.textContent = '';
+  text.forEach(char => {
+    const span = document.createElement('span');
+    span.className = 'exploded-letter';
+    span.textContent = char;
+    document.body.appendChild(span);
+
+    const rect = message.getBoundingClientRect();
+    span.style.left = (rect.left + window.scrollX + Math.random()*rect.width) + 'px';
+    span.style.top = (rect.top + window.scrollY + Math.random()*rect.height) + 'px';
+
+    let dx = (Math.random()*20-10);
+    let dy = (Math.random()*-15-5);
+    let alpha = 1;
+
+    const move = setInterval(()=>{
+      span.style.left = (span.offsetLeft + dx) + 'px';
+      span.style.top = (span.offsetTop + dy) + 'px';
+      dy += 0.8;
+      alpha -= 0.02;
+      span.style.opacity = alpha;
+      if(alpha <= 0 || span.offsetTop > document.body.scrollHeight){
+        clearInterval(move);
+        span.remove();
+      }
+    },30);
+  });
+});
+</script>
+
+</body>
+</html>
